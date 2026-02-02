@@ -1,7 +1,7 @@
-discord.py
-requests
-beautifulsoup4
-lxml
-python-dotenv
-Pillow
-requests-oauthlib
+discord.py==2.6.4
+requests==2.32.5
+beautifulsoup4==4.14.3
+lxml==6.0.2
+python-dotenv==1.2.1
+Pillow==12.1.0
+requests-oauthlib==2.0.0
