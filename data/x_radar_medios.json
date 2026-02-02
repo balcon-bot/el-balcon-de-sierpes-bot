@@ -1,0 +1,9 @@
+[
+  {
+    "id": "abc_pasion_sevilla",
+    "name": "ABC Pasión en Sevilla",
+    "url": "https://www.abc.es/sevilla/pasionensevilla/",
+    "enabled": true,
+    "max_items": 20
+  }
+]
