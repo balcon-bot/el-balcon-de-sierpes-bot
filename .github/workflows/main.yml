@@ -1,4 +1,7 @@
 name: El Balcón de Sierpes Bot
+concurrency:
+  group: balcon-bot
+  cancel-in-progress: true
 
 on:
   workflow_dispatch:   # Permite ejecutarlo a mano
