@@ -1,0 +1,7 @@
+discord.py
+requests
+beautifulsoup4
+lxml
+python-dotenv
+Pillow
+requests-oauthlib
