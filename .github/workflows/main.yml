@@ -1,41 +1,37 @@
-name: El Balcón de Sierpes Bot
-concurrency:
-  group: balcon-bot
-  cancel-in-progress: true
+name: Bot Cofrade - Cada 5 Minutos
 
 on:
-  workflow_dispatch:   # Permite ejecutarlo a mano
   schedule:
-    - cron: "*/15 * * * *"   # Cada 15 minutos (puedes cambiarlo luego)
+    - cron: '*/5 * * * *'
+  workflow_dispatch:
 
 jobs:
-  run-bot:
+  publish:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repo
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v3
 
       - name: Set up Python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v4
         with:
-          python-version: "3.11"
+          python-version: '3.9'
 
-      - name: Install dependencies
+      - name: Install Dependencies
+        run: pip install -r requirements.txt
+
+      - name: Create .env from Secrets
         run: |
-          python -m pip install --upgrade pip
-          pip install -r requirements.txt
+          echo "DISCORD_TOKEN=${{ secrets.DISCORD_TOKEN }}" >> .env
+          echo "DISCORD_CHANNEL_ID=${{ secrets.DISCORD_CHANNEL_ID }}" >> .env
+          echo "DISCORD_GUILD_ID=${{ secrets.DISCORD_GUILD_ID }}" >> .env
+          echo "TWITTER_API_KEY=${{ secrets.TWITTER_API_KEY }}" >> .env
+          echo "TWITTER_API_SECRET=${{ secrets.TWITTER_API_SECRET }}" >> .env
+          echo "TWITTER_ACCESS_TOKEN=${{ secrets.TWITTER_ACCESS_TOKEN }}" >> .env
+          echo "TWITTER_ACCESS_SECRET=${{ secrets.TWITTER_ACCESS_SECRET }}" >> .env
+          echo "NEWS_RSS_URL=${{ secrets.NEWS_RSS_URL }}" >> .env
+          echo "GIST_URL=${{ secrets.GIST_URL }}" >> .env
+          echo "GIST_TOKEN=${{ secrets.GIST_TOKEN }}" >> .env
 
-      - name: Run bot
-        env:
-          DISCORD_TOKEN: ${{ secrets.DISCORD_TOKEN }}
-          DISCORD_CHANNEL_ID: ${{ secrets.DISCORD_CHANNEL_ID }}
-
-          X_CONSUMER_KEY: ${{ secrets.X_CONSUMER_KEY }}
-          X_CONSUMER_SECRET: ${{ secrets.X_CONSUMER_SECRET }}
-          X_ACCESS_TOKEN: ${{ secrets.X_ACCESS_TOKEN }}
-          X_ACCESS_TOKEN_SECRET: ${{ secrets.X_ACCESS_TOKEN_SECRET }}
-
-        run: |
-          python bot.py
-
+      - name: Run Main Bot
+        run: python src/main_bot.py
