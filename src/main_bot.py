@@ -46,8 +46,7 @@ def main():
     )
 
     with open("last_post_data.txt", "w", encoding="utf-8") as f:
-        f.write(text_content + "
-")
+        f.write(text_content + "\n")
         f.write(image_path)
 
     subprocess.run(["python", "src/discord_sender.py"])
