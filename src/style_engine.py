@@ -17,19 +17,17 @@ class StyleEngine:
         self.openers = ["📜 Crónica de la Devoción:", "🕯️ Apuntes del Mayordomo:", "⚜️ Desde la Capilla:", "📰 Actualidad Cofrade:"]
         self.closers = ["Viva Sevilla.", "Fe y Devoción.", "🕯️", "Por la senda del sentimiento."]
 
-    def generate_post_content(self, raw_news):
+        def generate_post_content(self, raw_news):
         opener = random.choice(self.openers)
         closer = random.choice(self.closers)
         summary = raw_news['summary']
+
         for key, value in self.vocabulary.items():
             summary = summary.replace(key, value)
-        text = f"{opener}
 
-{raw_news['title'].upper()}
+        text = f"{opener}\n\n{raw_news['title'].upper()}\n\n{summary}\n\n{closer}"
 
-{summary}
-
-{closer}"
         if len(text) > 240:
             text = text[:237] + "..."
+
         return text
